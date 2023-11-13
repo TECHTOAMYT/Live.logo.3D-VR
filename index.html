@@ -1,21 +1,147 @@
 <!DOCTYPE html>
 <html lang="en" >
+
 <head>
   <meta charset="UTF-8">
-  <title>AM INDUSTRY'S LOGO - 3D</title>
-  <link rel="stylesheet" href="./style.css">
+  
+  
+  
 
+  <title>CodePen - Image 3D rotate with mouse</title>
+
+    <link rel="canonical" href="https://codepen.io/TECHTOAMYT/pen/XWOgEBR">
+  
+  
+  
+  
+<style>
+@import url("https://fonts.googleapis.com/css?family=Lobster");
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: "Lobster", cursive;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #333;
+}
+
+.background img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-filter: grayscale(30%) blur(15px);
+  -moz-filter: grayscale(30%) blur(15px);
+  -ms-filter: grayscale(30%) blur(15px);
+  -o-filter: grayscale(30%) blur(15px);
+  filter: grayscale(30%) blur(15px);
+  width: 1200px;
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0.6;
+}
+
+.cardBottom {
+  transition: 0.4s;
+  perspective: 1000px;
+  width: 480px;
+  height: 320px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.cardBottom .card {
+  transition: 0.2s;
+  border: 10px solid #fcfcfc;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+}
+.cardBottom .card .txt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  text-align: center;
+  border: 3px solid;
+  color: #fcfcfc;
+  font-size: 40px;
+}
+.cardBottom .card img {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+</style>
+
+  
+  
+  
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<div class="background"><img src="https://www.techtoam.online/logo.png"/></div>
-<div class="cardBottom">
-  <div class="card"> 
-  </div><img src="https://techtoam.online/assets/images/am-889x889.webp"/>
-  </div>
-</div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script  src="./script.js"></script>
 
+<body>
+  <div class="background"><img src="https://techtoam.online/assets/images/am-889x889.webp"/></div>
+<div class="cardBottom">
+  <div class="card"> <img src="https://techtoam.online/assets/images/am-889x889.webp" alt="AM industry 's"/></div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+      <script id="rendered-js" >
+// $('.cardBottom').mouseleave(function(){   
+//     $('.card').addClass('restore');
+// });
+function obj_hover_rotate($hover_obj, $wrap_obj, $move_obj){
+  $($hover_obj).mousemove(function(ev){
+    // var clientHeight = $(window).height;
+    // var clientWidth = $(window).width;
+    // $('.card').removeClass('restore')
+    var oEvent = ev || event;
+
+    var cardWidth = parseInt($($wrap_obj).css('width'));
+    var cardHeight = parseInt($($wrap_obj).css('height'));
+
+    var cardLeft = parseInt($($wrap_obj).css('left'));
+    var cardTop = parseInt($($wrap_obj).css('top'));
+
+    var centerDisX = oEvent.clientX - cardLeft; 
+    var centerDisY = oEvent.clientY - cardTop;
+    console.log(centerDisX)
+
+    //$('.txt').val(centerDisX + ", "+ centerDisY);
+    var degX = (Math.abs(centerDisY) / (cardHeight/2)) * 10;
+    var degY = (Math.abs(centerDisX) / (cardWidth/2)) * 10;
+    //$('.txt').val(degX + ", "+ degY);
+
+    if(centerDisY < 0 && centerDisX < 0){
+       $($move_obj).css({'transform' : 'translate(-50%, -50%) rotateX('+degX+'deg) rotateY(-'+degY+'deg)'});
+    }
+     if(centerDisY < 0 && centerDisX > 0){
+       $($move_obj).css({'transform' : 'translate(-50%, -50%) rotateX('+degX+'deg) rotateY('+degY+'deg)'});
+    }
+     if(centerDisY > 0 && centerDisX < 0){
+       $($move_obj).css({'transform' : 'translate(-50%, -50%) rotateX(-'+degX+'deg) rotateY(-'+degY+'deg)'});
+    }
+     if(centerDisY > 0 && centerDisX > 0){
+       $($move_obj).css({'transform' : 'translate(-50%, -50%) rotateX(-'+degX+'deg) rotateY('+degY+'deg)'});
+    }
+  });
+}
+
+
+
+obj_hover_rotate("body", ".cardBottom", ".card");
+    </script>
+
+  
 </body>
+
 </html>
